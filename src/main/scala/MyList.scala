@@ -36,6 +36,10 @@ object MyList:
   def flatMap[A, B](list: MyList[A], f: A => MyList[B]): MyList[B] =
     foldRightViaFoldLeft(list, Nil: MyList[B], (acc: MyList[B], h: A) => append(f(h), acc))
 
+  def flatMap_2[A, B](list: MyList[A], f: A => MyList[B]): MyList[B] =    
+      list match
+        case Nil => MyList.Nil
+        case Cons(h, t) => append(f(h),  flatMap_2(t, f))
   def filter[A](list: MyList[A], f: A => Boolean): MyList[A] =
     foldRight(list, Nil: MyList[A], (h, acc) => if f(h) then Cons(h, acc) else acc)
 

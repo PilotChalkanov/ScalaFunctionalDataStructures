@@ -1,11 +1,15 @@
 
+import MyList.{Cons, Nil}
 object playground extends App {
+ val nestedList: MyList[MyList[Int]] = MyList(
+  MyList(1, 2, 3),
+  MyList(4, 5),
+  MyList(6, 7, 8)
+ )
+ println(nestedList)
+ val flattenedList: MyList[Int] = MyList.concatNested(nestedList)
 
-  def mean(xs: Seq[Double]): Option[Double] =
-    if xs.isEmpty then None
-    else Some(xs.sum / xs.length)
-
-  def variance(xs: Seq[Double]): Option[Double] =
-    mean(xs).flatMap(m => mean(xs.map(x => math.pow(x - m, 2))))
+ // Output: Cons(1, Cons(2, Cons(3, Cons(4, Cons(5, Cons(6, Cons(7, Cons(8, Nil)))))))))
+ println(flattenedList)
 
 }
